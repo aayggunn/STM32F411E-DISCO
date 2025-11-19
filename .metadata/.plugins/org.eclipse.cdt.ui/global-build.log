@@ -1,0 +1,19 @@
+15:21:23 **** Incremental Build of configuration Debug for project register-radar ****
+make -j16 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -c -I"C:/Users/abdur/Desktop/projeler/STM32F411E-DISCO/001.LED_BLINKING/led-disco-uart/Drivers/CMSIS/Device/ST/STM32F4xx" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -c -I"C:/Users/abdur/Desktop/projeler/STM32F411E-DISCO/001.LED_BLINKING/led-disco-uart/Drivers/CMSIS/Device/ST/STM32F4xx" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -c -I"C:/Users/abdur/Desktop/projeler/STM32F411E-DISCO/001.LED_BLINKING/led-disco-uart/Drivers/CMSIS/Device/ST/STM32F4xx" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+../Src/main.c:20:10: fatal error: stm32f4xx.h: No such file or directory
+   20 | #include "stm32f4xx.h"
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+make: *** [Src/subdir.mk:25: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+17:00:28 **** Build of configuration Debug for project RADAR ****
+make -j16 all 
+arm-none-eabi-size  RADAR.elf 
+   text	   data	    bss	    dec	    hex	filename
+  22952	     92	   2196	  25240	   6298	RADAR.elf
+Finished building: default.size.stdout
+ 

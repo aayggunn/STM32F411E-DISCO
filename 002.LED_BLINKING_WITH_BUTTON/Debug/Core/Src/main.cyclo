@@ -1,0 +1,13 @@
+../Core/Src/main.c:17:13:delay_us	2
+../Core/Src/main.c:21:13:uart2_write_char	2
+../Core/Src/main.c:25:13:uart2_write	2
+../Core/Src/main.c:28:13:u32_to_dec	5
+../Core/Src/main.c:38:13:clock_init	1
+../Core/Src/main.c:47:13:gpio_init	1
+../Core/Src/main.c:71:13:tim2_init_1MHz	1
+../Core/Src/main.c:78:13:tim1_pwm_init_50Hz	1
+../Core/Src/main.c:90:13:usart2_init_115200	1
+../Core/Src/main.c:97:13:adc1_init	1
+../Core/Src/main.c:109:17:adc1_read_ch8	2
+../Core/Src/main.c:115:12:hcsr04_read_cm	6
+../Core/Src/main.c:147:5:main	16

@@ -1,0 +1,210 @@
+/* Minimal bare-metal STM32F411 (Keil, no HAL) — 32KB alti
+   HSI 16MHz, TIM2=1MHz (us delay), TIM1 PWM=50Hz (servo),
+   UART2=115200, ADC1 ch8 (PB0), HC-SR04 PB2/PB1, LEDs PA4-7, Buzzer PC4 */
+
+#include "stm32f4xx.h"
+
+/* ====== Pin Macrolari ====== */
+#define LED_MASK        (GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7) // PA4..PA7
+#define BUZZER_PIN      GPIO_PIN_4  // PC4
+#define TRIG_PIN        GPIO_PIN_2  // PB2
+#define ECHO_PIN        GPIO_PIN_1  // PB1
+/* Servo: PA8 (TIM1_CH1) AF1 */
+/* UART2: PA2/PA3 AF7 */
+/* ADC1_IN8: PB0 */
+
+/* ====== Küçük yardimcilar ====== */
+static void delay_us(uint32_t us) {
+    TIM2->CNT = 0;
+    while (TIM2->CNT < us) { __NOP(); }
+}
+static void uart2_write_char(char c) {
+    while (!(USART2->SR & USART_SR_TXE)) {}
+    USART2->DR = (uint16_t)c;
+}
+static void uart2_write(const char* s) {
+    while (*s) uart2_write_char(*s++);
+}
+static void u32_to_dec(uint32_t v, char *buf) {
+    /* önemsiz: 0..4294967295 */
+    char tmp[10]; int i=0;
+    if (v==0) { buf[0]='0'; buf[1]='\0'; return; }
+    while (v>0 && i<10) { tmp[i++] = '0' + (v%10); v/=10; }
+    for (int j=0; j<i; ++j) buf[j] = tmp[i-1-j];
+    buf[i]='\0';
+}
+
+/* ====== Donanim Kurulumlari ====== */
+static void clock_init(void) {
+    /* HSI zaten enable (16MHz). Flash wait 0..2 yeterli; default uygun. */
+    /* AHB1: GPIOA, GPIOB, GPIOC; APB1: TIM2, USART2; APB2: TIM1, ADC1, SYSCFG */
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN | RCC_AHB1ENR_GPIOBEN | RCC_AHB1ENR_GPIOCEN;
+    RCC->APB1ENR |= RCC_APB1ENR_TIM2EN | RCC_APB1ENR_USART2EN;
+    RCC->APB2ENR |= RCC_APB2ENR_TIM1EN | RCC_APB2ENR_ADC1EN | RCC_APB2ENR_SYSCFGEN;
+    __DSB(); __NOP();
+}
+
+static void gpio_init(void) {
+    /* PA4..7: LED — output push-pull */
+    GPIOA->MODER &= ~( (3u<<(4*2)) | (3u<<(5*2)) | (3u<<(6*2)) | (3u<<(7*2)) );
+    GPIOA->MODER |=  ( (1u<<(4*2)) | (1u<<(5*2)) | (1u<<(6*2)) | (1u<<(7*2)) );
+    /* PC4: Buzzer — output */
+    GPIOC->MODER &= ~(3u<<(4*2)); GPIOC->MODER |= (1u<<(4*2));
+    /* PB2: TRIG — output; PB1: ECHO — input */
+    GPIOB->MODER &= ~((3u<<(2*2)) | (3u<<(1*2)));
+    GPIOB->MODER |=  (1u<<(2*2)); /* PB2 output */
+    /* PB1 input default, no pull */
+    GPIOB->PUPDR &= ~(3u<<(1*2));
+    /* Servo PA8: AF1 (TIM1_CH1) */
+    GPIOA->MODER &= ~(3u<<(8*2)); GPIOA->MODER |= (2u<<(8*2));
+    GPIOA->AFR[1] &= ~(0xFu<<((8-8)*4)); /* AFRH bit0..3 */
+    GPIOA->AFR[1] |=  (0x1u<<((8-8)*4)); /* AF1 */
+    /* UART2 PA2/PA3: AF7 */
+    GPIOA->MODER &= ~((3u<<(2*2)) | (3u<<(3*2)));
+    GPIOA->MODER |=  ((2u<<(2*2)) | (2u<<(3*2)));
+    GPIOA->AFR[0] &= ~((0xFu<<(2*4)) | (0xFu<<(3*4)));
+    GPIOA->AFR[0] |=  ((0x7u<<(2*4)) | (0x7u<<(3*4)));
+    /* ADC1_IN8 PB0: analog */
+    GPIOB->MODER &= ~(3u<<(0*2)); GPIOB->MODER |= (3u<<(0*2)); /* analog */
+}
+
+static void tim2_init_1MHz(void) {
+    /* TIM2: CNT 0..0xFFFF, PSC=15 -> 16MHz/(15+1)=1MHz, thus 1 tick = 1us */
+    TIM2->PSC = 15;
+    TIM2->ARR = 0xFFFF;
+    TIM2->CR1 = TIM_CR1_CEN;
+}
+
+static void tim1_pwm_init_50Hz(void) {
+    /* TIM1 clock: 16MHz (APB2 prescaler default /1). PSC=15 => 1MHz
+       ARR=20000-1 => 50Hz; CCR1 = 500..2500us for servo */
+    TIM1->PSC = 15;
+    TIM1->ARR = 20000-1;
+    TIM1->CCR1 = 1500; /* orta */
+    TIM1->CCMR1 = (6u<<4); /* OC1M=110: PWM1, OC1PE=0 */
+    TIM1->CCER  = TIM_CCER_CC1E;
+    TIM1->BDTR  = TIM_BDTR_MOE; /* main output enable */
+    TIM1->CR1   = TIM_CR1_CEN;
+}
+
+static void usart2_init_115200(void) {
+    /* 16MHz, oversampling 16, BRR ˜ 8.6875 -> mantissa=8, fraction˜11 -> 0x008B */
+    USART2->CR1 = 0; /* disable while config */
+    USART2->BRR = 0x008B;
+    USART2->CR1 = USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
+}
+
+static void adc1_init(void) {
+    /* Single conv, right align, 12-bit, channel 8, software trigger */
+    ADC->CCR = 0; /* prescaler default /2 yeter; HSI/2 -> ~8MHz, ok */
+    ADC1->CR1 = 0;
+    ADC1->CR2 = 0; /* ADON kapaliyken ayarla */
+    ADC1->SQR1 = 0;              /* 1 conversion */
+    ADC1->SQR3 = 8;              /* first rank: channel 8 */
+    ADC1->SMPR2 &= ~(7u<<(3*8)); /* ch8 sample time = 3 cycles (default) */
+    ADC1->CR2 |= ADC_CR2_ADON;   /* enable */
+}
+
+/* ====== Ölçümler ====== */
+static uint32_t adc1_read_ch8(void) {
+    ADC1->CR2 |= ADC_CR2_SWSTART;
+    while (!(ADC1->SR & ADC_SR_EOC)) {}
+    return ADC1->DR & 0xFFFF;
+}
+
+static int hcsr04_read_cm(void) {
+    /* 10us TRIG -> ECHO high süresini TIM2 ile ölç, 1 tick = 1us */
+    uint32_t start, end, timeout;
+
+    /* TRIG LOW kisa bekle */
+    GPIOB->BSRR = (uint32_t)TRIG_PIN << 16;
+    delay_us(2);
+    /* TRIG HIGH 10us */
+    GPIOB->BSRR = TRIG_PIN;
+    delay_us(10);
+    GPIOB->BSRR = (uint32_t)TRIG_PIN << 16;
+
+    /* ECHO yükselmesini bekle (timeout ~30ms) */
+    timeout = 30000;
+    while ((GPIOB->IDR & ECHO_PIN) == 0) {
+        if (--timeout == 0) return -1;
+    }
+    start = TIM2->CNT;
+    /* ECHO düsmesini bekle (timeout ~30ms) */
+    timeout = 30000;
+    while ((GPIOB->IDR & ECHO_PIN) != 0) {
+        if (--timeout == 0) return -1;
+    }
+    end = TIM2->CNT;
+
+    uint32_t dur_us = (end >= start) ? (end - start) : (0x10000u - start + end);
+    /* HC-SR04: mesafe (cm) ˜ dur_us / 58 */
+    int cm = (int)((dur_us + 29) / 58); /* yuvarlama */
+    return cm;
+}
+
+/* ====== Uygulama ====== */
+int main(void) {
+    clock_init();
+    gpio_init();
+    tim2_init_1MHz();
+    tim1_pwm_init_50Hz();
+    usart2_init_115200();
+    adc1_init();
+
+    /* Baslangiç: tüm LED/buzzer sönük */
+    GPIOA->BSRR = ((uint32_t)LED_MASK) << 16;
+    GPIOC->BSRR = ((uint32_t)BUZZER_PIN) << 16;
+
+    char buf[16];
+
+    while (1) {
+        /* ADC 0..4095 -> PWM 500..2500 us */
+        uint32_t adc = adc1_read_ch8();
+        uint32_t pwm_us = 500 + (adc * 2000u) / 4095u;
+        if (pwm_us < 500)   pwm_us = 500;
+        if (pwm_us > 2500)  pwm_us = 2500;
+        TIM1->CCR1 = pwm_us;
+
+        /* Mesafe ölç */
+        int dist = hcsr04_read_cm();
+        if (dist < 0) dist = 0; /* timeout durumda 0 kabul */
+
+        /* LED/Buzzer mantigi */
+        uint32_t set_mask = 0;
+        uint8_t led1=0,led2=0,led3=0,led4=0,buz=0;
+
+        if (dist > 15 && dist <= 20) { set_mask |= GPIO_PIN_4; led1=1; }
+        if (dist > 10 && dist <= 15) { set_mask |= (GPIO_PIN_4|GPIO_PIN_5); led1=1; led2=1; }
+        if (dist > 5  && dist <= 10) { set_mask |= (GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6); led1=1; led2=1; led3=1; }
+        if (dist <= 5) {
+            set_mask |= (GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7);
+            GPIOC->BSRR = BUZZER_PIN; buz=1;
+            led1=led2=led3=led4=1;
+        } else {
+            GPIOC->BSRR = ((uint32_t)BUZZER_PIN) << 16;
+        }
+        /* LED’leri güncelle */
+        GPIOA->BSRR = ((uint32_t)LED_MASK) << 16; /* hepsini kapat */
+        GPIOA->BSRR = set_mask;                   /* gerekenleri aç */
+
+        /* UART: "ADC=...,PWM=...,Dist=...,LED1=..,LED2=..,LED3=..,LED4=..,BUZZ=..\r\n" */
+        uart2_write("ADC=");
+        u32_to_dec(adc, buf); uart2_write(buf);
+        uart2_write(",PWM=");
+        u32_to_dec(pwm_us, buf); uart2_write(buf);
+        uart2_write(",Dist=");
+        u32_to_dec((uint32_t)dist, buf); uart2_write(buf);
+        uart2_write(",LED1="); uart2_write(led1?"1":"0");
+        uart2_write(",LED2="); uart2_write(led2?"1":"0");
+        uart2_write(",LED3="); uart2_write(led3?"1":"0");
+        uart2_write(",LED4="); uart2_write( (set_mask&GPIO_PIN_7)? "1":"0" );
+        uart2_write(",BUZZ="); uart2_write(buz?"1":"0");
+        uart2_write("\r\n");
+
+        /* 100ms bekle: 100000us */
+        delay_us(100000);
+    }
+}
+
+/* ----- Basit assert/HardFault handler kullanabilirsiniz. Keil startup S dosyasi yeterlidir. ----- */

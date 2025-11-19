@@ -1,0 +1,10 @@
+12:52:04 **** Incremental Build of configuration Debug for project led-disco1 ****
+make -j16 all 
+arm-none-eabi-size  led-disco1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15140	     12	   2564	  17716	   4534	led-disco1.elf
+Finished building: default.size.stdout
+ 
+
+12:52:04 Build Finished. 0 errors, 0 warnings. (took 254ms)
+

@@ -1,0 +1,10 @@
+13:59:59 **** Incremental Build of configuration Debug for project led-disco-uart ****
+make -j16 all 
+arm-none-eabi-size  led-disco-uart.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16644	     12	   2028	  18684	   48fc	led-disco-uart.elf
+Finished building: default.size.stdout
+ 
+
+13:59:59 Build Finished. 0 errors, 0 warnings. (took 196ms)
+

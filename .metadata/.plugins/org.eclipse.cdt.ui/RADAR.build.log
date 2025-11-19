@@ -1,0 +1,10 @@
+17:00:28 **** Build of configuration Debug for project RADAR ****
+make -j16 all 
+arm-none-eabi-size  RADAR.elf 
+   text	   data	    bss	    dec	    hex	filename
+  22952	     92	   2196	  25240	   6298	RADAR.elf
+Finished building: default.size.stdout
+ 
+
+17:00:29 Build Finished. 0 errors, 0 warnings. (took 454ms)
+

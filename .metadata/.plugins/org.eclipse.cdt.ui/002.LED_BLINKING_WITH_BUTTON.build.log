@@ -1,0 +1,12 @@
+15:03:48 **** Build of configuration Debug for project 002.LED_BLINKING_WITH_BUTTON ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../USB_HOST/App -I../USB_HOST/Target -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/ST/STM32_USB_Host_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "002.LED_BLINKING_WITH_BUTTON.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\abdur\STM32CubeIDE\workspace_1.19.0\002.LED_BLINKING_WITH_BUTTON\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="002.LED_BLINKING_WITH_BUTTON.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld.exe: ./Core/Src/stm32f4xx_it.o: in function `USART2_IRQHandler':
+C:/Users/abdur/STM32CubeIDE/workspace_1.19.0/002.LED_BLINKING_WITH_BUTTON/Debug/../Core/Src/stm32f4xx_it.c:214:(.text.USART2_IRQHandler+0x10): undefined reference to `huart2'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:68: 002.LED_BLINKING_WITH_BUTTON.elf] Error 1
+"make -j16 all" terminated with exit code 2. Build might be incomplete.
+
+15:03:50 Build Failed. 2 errors, 0 warnings. (took 1s.528ms)
+

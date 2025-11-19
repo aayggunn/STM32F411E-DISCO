@@ -1,0 +1,15 @@
+#include "stm32f4xx.h"
+
+int main(void) {
+    // GPIOA clock enable (bit 0 = 1)
+    RCC->AHB1ENR |= (1 << 0);
+
+    // PA5 output mode
+    GPIOA->MODER &= ~(3 << (5 * 2));
+    GPIOA->MODER |=  (1 << (5 * 2));
+
+    while (1) {
+        GPIOA->ODR ^= (1 << 5);   // Toggle PA5
+        for (volatile int i = 0; i < 100000; i++); // basit delay
+    }
+}

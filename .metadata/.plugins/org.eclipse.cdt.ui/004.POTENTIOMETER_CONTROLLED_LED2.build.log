@@ -1,0 +1,10 @@
+12:02:35 **** Incremental Build of configuration Debug for project 004.POTENTIOMETER_CONTROLLED_LED2 ****
+make -j16 all 
+arm-none-eabi-size  004.POTENTIOMETER_CONTROLLED_LED2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16948	     92	   2060	  19100	   4a9c	004.POTENTIOMETER_CONTROLLED_LED2.elf
+Finished building: default.size.stdout
+ 
+
+12:02:35 Build Finished. 0 errors, 0 warnings. (took 250ms)
+
