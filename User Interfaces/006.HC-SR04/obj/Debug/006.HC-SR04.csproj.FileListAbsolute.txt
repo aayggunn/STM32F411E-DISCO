@@ -1,0 +1,11 @@
+C:\Users\abdur\Desktop\006.HC-SR04\bin\Debug\006.HC-SR04.exe.config
+C:\Users\abdur\Desktop\006.HC-SR04\bin\Debug\006.HC-SR04.exe
+C:\Users\abdur\Desktop\006.HC-SR04\bin\Debug\006.HC-SR04.pdb
+C:\Users\abdur\Desktop\006.HC-SR04\obj\Debug\006.HC-SR04.csproj.AssemblyReference.cache
+C:\Users\abdur\Desktop\006.HC-SR04\obj\Debug\_006.HC_SR04.Form1.resources
+C:\Users\abdur\Desktop\006.HC-SR04\obj\Debug\_006.HC_SR04.Properties.Resources.resources
+C:\Users\abdur\Desktop\006.HC-SR04\obj\Debug\006.HC-SR04.csproj.GenerateResource.cache
+C:\Users\abdur\Desktop\006.HC-SR04\obj\Debug\006.HC-SR04.csproj.CoreCompileInputs.cache
+C:\Users\abdur\Desktop\006.HC-SR04\obj\Debug\006.HC-SR04.exe
+C:\Users\abdur\Desktop\006.HC-SR04\obj\Debug\006.HC-SR04.pdb
+C:\Users\abdur\Desktop\006.HC-SR04\obj\Debug\006.HC-SR04.exe.config

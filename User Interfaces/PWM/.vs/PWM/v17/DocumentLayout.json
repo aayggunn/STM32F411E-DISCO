@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\abdur\\Desktop\\PWM\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3A19C6F9-EF32-41C5-8296-AD8279BF665B}|PWM\\PWM.csproj|c:\\users\\abdur\\desktop\\pwm\\pwm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3A19C6F9-EF32-41C5-8296-AD8279BF665B}|PWM\\PWM.csproj|solutionrelative:pwm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A19C6F9-EF32-41C5-8296-AD8279BF665B}|PWM\\PWM.csproj|C:\\Users\\abdur\\Desktop\\PWM\\pwm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A19C6F9-EF32-41C5-8296-AD8279BF665B}|PWM\\PWM.csproj|solutionrelative:pwm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\abdur\\Desktop\\PWM\\PWM\\Form1.cs",
+              "RelativeDocumentMoniker": "PWM\\Form1.cs",
+              "ToolTip": "C:\\Users\\abdur\\Desktop\\PWM\\PWM\\Form1.cs",
+              "RelativeToolTip": "PWM\\Form1.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAApwFwAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T10:10:23.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Tasar\u0131m]",
+              "DocumentMoniker": "C:\\Users\\abdur\\Desktop\\PWM\\PWM\\Form1.cs",
+              "RelativeDocumentMoniker": "PWM\\Form1.cs",
+              "ToolTip": "C:\\Users\\abdur\\Desktop\\PWM\\PWM\\Form1.cs [Tasar\u0131m]",
+              "RelativeToolTip": "PWM\\Form1.cs [Tasar\u0131m]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T10:08:44.714Z",
+              "EditorCaption": " [Tasar\u0131m]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\obj\Debug\potentiometer-controlled-led2.csproj.AssemblyReference.cache
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\obj\Debug\potentiometer_controlled_led2.Form1.resources
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\obj\Debug\potentiometer_controlled_led2.Properties.Resources.resources
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\obj\Debug\potentiometer-controlled-led2.csproj.GenerateResource.cache
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\obj\Debug\potentiometer-controlled-led2.csproj.CoreCompileInputs.cache
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\bin\Debug\potentiometer-controlled-led2.exe.config
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\bin\Debug\potentiometer-controlled-led2.exe
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\bin\Debug\potentiometer-controlled-led2.pdb
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\obj\Debug\potentiometer-controlled-led2.exe
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\obj\Debug\potentiometer-controlled-led2.pdb
+C:\Users\abdur\Desktop\potentiometer-controlled-led2\obj\Debug\potentiometer-controlled-led2.exe.config

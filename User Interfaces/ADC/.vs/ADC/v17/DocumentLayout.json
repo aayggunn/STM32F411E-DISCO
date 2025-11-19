@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\abdur\\Desktop\\ADC\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E68B36ED-1EB2-43DC-96C2-58202ED2E4D1}|ADC\\ADC.csproj|c:\\users\\abdur\\desktop\\adc\\adc\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E68B36ED-1EB2-43DC-96C2-58202ED2E4D1}|ADC\\ADC.csproj|solutionrelative:adc\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E68B36ED-1EB2-43DC-96C2-58202ED2E4D1}|ADC\\ADC.csproj|c:\\users\\abdur\\desktop\\adc\\adc\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E68B36ED-1EB2-43DC-96C2-58202ED2E4D1}|ADC\\ADC.csproj|solutionrelative:adc\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E68B36ED-1EB2-43DC-96C2-58202ED2E4D1}|ADC\\ADC.csproj|C:\\Users\\abdur\\Desktop\\ADC\\adc\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E68B36ED-1EB2-43DC-96C2-58202ED2E4D1}|ADC\\ADC.csproj|solutionrelative:adc\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\abdur\\Desktop\\ADC\\ADC\\Form1.cs",
+              "RelativeDocumentMoniker": "ADC\\Form1.cs",
+              "ToolTip": "C:\\Users\\abdur\\Desktop\\ADC\\ADC\\Form1.cs",
+              "RelativeToolTip": "ADC\\Form1.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAAAGgAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-21T13:45:48.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\abdur\\Desktop\\ADC\\ADC\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "ADC\\Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\abdur\\Desktop\\ADC\\ADC\\Form1.Designer.cs",
+              "RelativeToolTip": "ADC\\Form1.Designer.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAkwJAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-31T12:36:14.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Tasar\u0131m]",
+              "DocumentMoniker": "C:\\Users\\abdur\\Desktop\\ADC\\ADC\\Form1.cs",
+              "RelativeDocumentMoniker": "ADC\\Form1.cs",
+              "ToolTip": "C:\\Users\\abdur\\Desktop\\ADC\\ADC\\Form1.cs [Tasar\u0131m]",
+              "RelativeToolTip": "ADC\\Form1.cs [Tasar\u0131m]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-31T09:51:38.581Z",
+              "EditorCaption": " [Tasar\u0131m]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
